@@ -30,9 +30,9 @@ UINavigationControllerDelegate, UITextFieldDelegate {
         NSAttributedStringKey.strokeWidth.rawValue: -5]
     
     
-    func save(image: UIImage) -> Meme {
+    func save(image: UIImage){
         // Create the meme obj
-        return Meme(topText: topText.text!, bottontext: bottonText.text!, originalImage: memeImage.image!, memedImage: image)
+        meme = Meme(topText: topText.text!, bottontext: bottonText.text!, originalImage: memeImage.image!, memedImage: image)
     }
     
     //MARK:- UIViewController Delegate
@@ -41,15 +41,8 @@ UINavigationControllerDelegate, UITextFieldDelegate {
         imagePicker.delegate = self
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         
-        topText.delegate = self
-        topText.defaultTextAttributes = memeTextAttributes
-        topText.textAlignment = .center
-        topText.attributedPlaceholder = NSAttributedString(string: topText.placeholder!, attributes: [NSAttributedStringKey.foregroundColor : UIColor.white])
-
-        bottonText.delegate = self
-        bottonText.defaultTextAttributes = memeTextAttributes
-        bottonText.textAlignment = .center
-        bottonText.attributedPlaceholder = NSAttributedString(string: bottonText.placeholder!, attributes: [NSAttributedStringKey.foregroundColor : UIColor.white])
+        configureTextfield(textField: topText)
+        configureTextfield(textField: bottonText)
 
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MemeViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -111,7 +104,7 @@ UINavigationControllerDelegate, UITextFieldDelegate {
         activityViewController.completionWithItemsHandler = {
             activity, completed, items, error in
             if completed {
-                self.meme = self.save(image: memedImage)
+                self.save(image: memedImage)
                 self.dismiss(animated: true, completion: nil)
             }
         }
@@ -131,6 +124,13 @@ UINavigationControllerDelegate, UITextFieldDelegate {
     }
     
     //MARK:- UITextFieldDelegate / Keyboard Handle
+    func configureTextfield(textField: UITextField) {
+        textField.delegate = self
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.textAlignment = .center
+        textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSAttributedStringKey.foregroundColor : UIColor.white])
+    }
+    
     func subscribeToKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil)
@@ -159,11 +159,11 @@ UINavigationControllerDelegate, UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        activeField = textField;
+        activeField = textField
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        activeField = nil;
+        activeField = nil
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
