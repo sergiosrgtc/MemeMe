@@ -11,8 +11,9 @@ import UIKit
 
 struct Meme {
     var topText: String
-    var bottontext: String
+    var bottomtext: String
     var originalImage: UIImage
     var memedImage: UIImage
+    var path: URL
 }
 

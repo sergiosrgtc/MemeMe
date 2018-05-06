@@ -29,10 +29,11 @@ UINavigationControllerDelegate, UITextFieldDelegate {
         NSAttributedStringKey.font.rawValue: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
         NSAttributedStringKey.strokeWidth.rawValue: -5]
     
-    
     func save(image: UIImage){
         // Create the meme obj
-        meme = Meme(topText: topText.text!, bottontext: bottonText.text!, originalImage: memeImage.image!, memedImage: image)
+        let meme = Meme(topText: topText.text!, bottomtext: bottonText.text!, originalImage: memeImage.image!, memedImage: image, path: URL.init(string: "empty")!)
+        MemeHandler.sharedInstance.memes.append(meme)
+        MemeHandler.sharedInstance.saveMeme(meme)
     }
     
     //MARK:- UIViewController Delegate
@@ -75,6 +76,8 @@ UINavigationControllerDelegate, UITextFieldDelegate {
         topText.text = ""
         memeImage.image = nil
         shareButton.isEnabled = false
+        
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func pickImageFromAlbum(_ sender:Any) {
@@ -110,7 +113,6 @@ UINavigationControllerDelegate, UITextFieldDelegate {
         }
         self.present(activityViewController, animated: true, completion: nil)
     }
-    
     
     //MARK:- Hide/Show Toolbar and NavBar
     func hideToolBarAndNaviBar(){
