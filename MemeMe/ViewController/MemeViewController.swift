@@ -40,7 +40,6 @@ UINavigationControllerDelegate, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
-        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         
         configureTextfield(textField: topText)
         configureTextfield(textField: bottonText)
@@ -54,6 +53,7 @@ UINavigationControllerDelegate, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         subscribeToKeyboardNotifications()
+        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -92,12 +92,12 @@ UINavigationControllerDelegate, UITextFieldDelegate {
     
     @IBAction func shareMeme(_ sender: Any) {
         // image to share
-        hideToolBarAndNaviBar()
+        hideToolBarAndNaviBar(true)
         
         let memedImage = self.takePrintScreen()
         
-        showToolBarAndNaviBar()
-        
+        hideToolBarAndNaviBar(false)
+
         let imageToShare = [memedImage]
         let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
         // so that iPads won't crash
@@ -115,14 +115,9 @@ UINavigationControllerDelegate, UITextFieldDelegate {
     }
     
     //MARK:- Hide/Show Toolbar and NavBar
-    func hideToolBarAndNaviBar(){
-        toolBar.isHidden = true
-        navigationController?.isNavigationBarHidden = true
-    }
-    
-    func showToolBarAndNaviBar(){
-        toolBar.isHidden = false
-        navigationController?.isNavigationBarHidden = false
+    func hideToolBarAndNaviBar(_ hide: Bool){
+        toolBar.isHidden = hide
+        navigationController?.isNavigationBarHidden = hide
     }
     
     //MARK:- UITextFieldDelegate / Keyboard Handle
@@ -145,7 +140,7 @@ UINavigationControllerDelegate, UITextFieldDelegate {
     
     @objc func keyboardWillShow(_ notification:Notification) {
         if activeField == bottonText{
-            view.frame.origin.y -= getKeyboardHeight(notification)
+            view.frame.origin.y -= getKeyboardHeight(notification) 
         }
     }
     

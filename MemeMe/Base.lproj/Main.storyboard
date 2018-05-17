@@ -50,7 +50,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="BOTTON" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bjX-TX-Xm8">
-                                <rect key="frame" x="10" y="547" width="355" height="60"/>
+                                <rect key="frame" x="10" y="562" width="355" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="ftE-E7-wbS"/>
                                 </constraints>
@@ -64,7 +64,7 @@
                             <constraint firstItem="hCR-oO-7eT" firstAttribute="top" secondItem="mbS-mh-J7B" secondAttribute="top" constant="60" id="1uc-jM-nDf"/>
                             <constraint firstItem="kZw-VC-Ueu" firstAttribute="bottom" secondItem="Hr8-Ub-8be" secondAttribute="bottom" id="8Pa-mh-haG"/>
                             <constraint firstItem="bjX-TX-Xm8" firstAttribute="leading" secondItem="Hr8-Ub-8be" secondAttribute="leading" constant="10" id="An6-HK-CPD"/>
-                            <constraint firstAttribute="bottom" secondItem="bjX-TX-Xm8" secondAttribute="bottom" constant="60" id="CGS-Xx-Lw9"/>
+                            <constraint firstAttribute="bottom" secondItem="bjX-TX-Xm8" secondAttribute="bottom" constant="45" id="CGS-Xx-Lw9"/>
                             <constraint firstItem="bjX-TX-Xm8" firstAttribute="centerX" secondItem="mbS-mh-J7B" secondAttribute="centerX" id="FSo-og-DxJ"/>
                             <constraint firstItem="kZw-VC-Ueu" firstAttribute="top" secondItem="mbS-mh-J7B" secondAttribute="top" id="Kce-8l-ANN"/>
                             <constraint firstItem="Hr8-Ub-8be" firstAttribute="trailing" secondItem="bjX-TX-Xm8" secondAttribute="trailing" constant="10" id="O1q-N9-z9t"/>
